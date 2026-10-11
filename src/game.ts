@@ -579,10 +579,11 @@ export const game: Game<CaromState, CaromDebugApi> = {
     return [initial(), surface()];
   },
   update(state, a, dt) {
+    if (state.muted !== a.audio.muted()) a.audio.setMuted(state.muted);
     let s: CaromState = {
       ...state,
       simTime: state.simTime + dt,
-      muted: a.audio.muted(),
+      muted: state.muted,
     };
     if (a.input.pressed("mute")) {
       a.audio.setMuted(!a.audio.muted());
